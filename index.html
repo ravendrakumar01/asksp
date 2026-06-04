@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASKSP - AI Study Partner | Apna AI Tutor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6C63FF;
+            --primary-dark: #5A52D5;
+            --secondary: #FF6584;
+            --accent: #00D2FF;
+            --dark: #1A1A2E;
+            --darker: #16213E;
+            --light: #F8F9FA;
+            --gradient-1: linear-gradient(135deg, #6C63FF 0%, #00D2FF 100%);
+            --gradient-2: linear-gradient(135deg, #FF6584 0%, #FF8A5C 100%);
+            --gradient-3: linear-gradient(135deg, #1A1A2E 0%, #16213E 100%);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background: var(--dark);
+            color: #fff;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: rgba(26, 26, 46, 0.8);
+            border-bottom: 1px solid rgba(108, 99, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 10px 5%;
+            background: rgba(26, 26, 46, 0.95);
+            box-shadow: 0 5px 30px rgba(108, 99, 255, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 18px;
+            color: white;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #ccc;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .btn-nav {
+            padding: 10px 25px;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.4);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 5% 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-bg .circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+        }
+
+        .hero-bg .circle-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            top: -100px;
+            right: -100px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero-bg .circle-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--secondary);
+            bottom: -50px;
+            left: -50px;
+            animation: float 6s ease-in-out infinite reverse;
+        }
+
+        .hero-bg .circle-3 {
+            width: 200px;
+            height: 200px;
+            background: var(--accent);
+            top: 50%;
+            left: 50%;
+            animation: float 10s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-left h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-left h1 .highlight {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-left p {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 8px 18px;
+            background: rgba(108, 99, 255, 0.15);
+            border: 1px solid rgba(108, 99, 255, 0.3);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            padding: 15px 35px;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(108, 99, 255, 0.4);
+        }
+
+        .btn-secondary {
+            padding: 15px 35px;
+            background: transparent;
+            border: 2px solid rgba(108, 99, 255, 0.5);
+            border-radius: 30px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            background: rgba(108, 99, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .hero-right {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            border-radius: 25px;
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            animation: floatCard 4s ease-in-out infinite;
+        }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .chat-demo {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .chat-msg {
+            padding: 12px 18px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            max-width: 85%;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .chat-user {
+            background: rgba(108, 99, 255, 0.2);
+            border: 1px solid rgba(108, 99, 255, 0.3);
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chat-ai {
+            background: rgba(0, 210, 255, 0.1);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .chat-typing {
+            display: flex;
+            gap: 5px;
+            padding: 15px 20px;
+            align-self: flex-start;
+        }
+
+        .chat-typing span {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+        .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 60px 5%;
+            background: rgba(108, 99, 255, 0.05);
+            border-top: 1px solid rgba(108, 99, 255, 0.1);
+            border-bottom: 1px solid rgba(108, 99, 255, 0.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: #aaa;
+            margin-top: 8px;
+            font-size: 0.95rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(108, 99, 255, 0.15);
+            border: 1px solid rgba(108, 99, 255, 0.3);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            color: #aaa;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(108, 99, 255, 0.15);
+            border-radius: 20px;
+            padding: 40px 30px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(108, 99, 255, 0.4);
+            box-shadow: 0 20px 60px rgba(108, 99, 255, 0.15);
+            background: rgba(108, 99, 255, 0.05);
+        }
+
+        .feature-icon {
+            width: 65px;
+            height: 65px;
+            background: rgba(108, 99, 255, 0.15);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: #aaa;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Subjects Section */
+        .subjects {
+            padding: 100px 5%;
+            background: rgba(108, 99, 255, 0.03);
+        }
+
+        .subjects-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .subject-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(108, 99, 255, 0.15);
+            border-radius: 20px;
+            padding: 35px 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(108, 99, 255, 0.2);
+        }
+
+        .subject-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .subject-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .subject-card p {
+            color: #aaa;
+            font-size: 0.85rem;
+        }
+
+        /* How it Works */
+        .how-it-works {
+            padding: 100px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .step-card {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 0 auto 25px;
+            position: relative;
+        }
+
+        .step-number::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px dashed rgba(108, 99, 255, 0.3);
+            border-radius: 50%;
+            animation: spin 10s linear infinite;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .step-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .step-card p {
+            color: #aaa;
+            line-height: 1.7;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 100px 5%;
+            background: rgba(108, 99, 255, 0.03);
+        }
+
+        .pricing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(108, 99, 255, 0.15);
+            border-radius: 25px;
+            padding: 45px 35px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card.popular {
+            border-color: var(--primary);
+            background: rgba(108, 99, 255, 0.08);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.popular::before {
+            content: '🔥 POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-2);
+            padding: 5px 20px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(108, 99, 255, 0.2);
+        }
+
+        .pricing-card.popular:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .pricing-amount {
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 20px 0;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pricing-amount span {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 10px 0;
+            color: #ccc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        .pricing-features li i {
+            color: #4CAF50;
+        }
+
+        .btn-pricing {
+            width: 100%;
+            padding: 15px;
+            border-radius: 25px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-pricing.primary {
+            background: var(--gradient-1);
+            color: white;
+        }
+
+        .btn-pricing.outline {
+            background: transparent;
+            border: 2px solid rgba(108, 99, 255, 0.5);
+            color: white;
+        }
+
+        .btn-pricing:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.3);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(108, 99, 255, 0.15);
+            border-radius: 20px;
+            padding: 35px;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            border-color: rgba(108, 99, 255, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .testimonial-stars {
+            color: #FFD700;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-text {
+            color: #ccc;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-avatar {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .testimonial-info h4 {
+            font-size: 0.95rem;
+        }
+
+        .testimonial-info p {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 100px 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: var(--primary);
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.15;
+        }
+
+        .cta h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 40px;
+        }
+
+        .cta-input-group {
+            display: flex;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .cta-input-group input {
+            flex: 1;
+            padding: 15px 25px;
+            border-radius: 30px;
+            border: 1px solid rgba(108, 99, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .cta-input-group input:focus {
+            border-color: var(--primary);
+        }
+
+        .cta-input-group input::placeholder {
+            color: #888;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 60px 5% 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(108, 99, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand p {
+            color: #aaa;
+            margin-top: 15px;
+            line-height: 1.7;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: rgba(108, 99, 255, 0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(108, 99, 255, 0.1);
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(26, 26, 46, 0.98);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-left h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero-badges {
+                justify-content: center;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-right {
+                order: -1;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .subjects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .pricing-card.popular {
+                transform: none;
+            }
+
+            .pricing-card.popular:hover {
+                transform: translateY(-10px);
+            }
+
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-left h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-left p {
+                font-size: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .subjects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .cta h2 {
+                font-size: 2rem;
+            }
+
+            .cta-input-group {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-card {
+                padding: 25px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-left h1 {
+                font-size: 1.8rem;
+            }
+
+            .subjects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-badges {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <a href="#" class="logo">
+            <div class="logo-icon">SP</div>
+            <div class="logo-text">ASK<span>SP</span></div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#subjects">Subjects</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#testimonials">Reviews</a></li>
+            <li><a href="#cta" class="btn-nav">Start Free Trial</a></li>
+        </ul>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="close-menu" onclick="toggleMenu()">×</button>
+        <a href="#features" onclick="toggleMenu()">Features</a>
+        <a href="#subjects" onclick="toggleMenu()">Subjects</a>
+        <a href="#pricing" onclick="toggleMenu()">Pricing</a>
+        <a href="#testimonials" onclick="toggleMenu()">Reviews</a>
+        <a href="#cta" class="btn-primary" onclick="toggleMenu()">Start Free Trial</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="circle circle-1"></div>
+            <div class="circle circle-2"></div>
+            <div class="circle circle-3"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-left">
+                <div class="hero-badges">
+                    <div class="badge"><i class="fas fa-bolt"></i> AI Powered</div>
+                    <div class="badge"><i class="fas fa-language"></i> Hindi + English</div>
+                    <div class="badge"><i class="fas fa-clock"></i> 24/7 Available</div>
+                </div>
+                <h1>Apna AI <span class="highlight">Study Partner</span> Jo Kabhi Thake Nahi! 🚀</h1>
+                <p>ASKSP aapka personal AI tutor hai jo har subject mein doubt clear kare, notes banaye, aur exam preparation mein madad kare — Hindi ya English mein, aapki marzi!</p>
+                <div class="hero-buttons">
+                    <a href="#cta" class="btn-primary">
+                        <i class="fas fa-rocket"></i> Free Mein Shuru Karo
+                    </a>
+                    <a href="#features" class="btn-secondary">
+                        <i class="fas fa-play-circle"></i> Demo Dekho
+                    </a>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="hero-card">
+                    <div class="chat-demo">
+                        <div class="chat-msg chat-user">
+                            🙋 "Newton ka dusra niyam samjhao Hindi mein"
+                        </div>
+                        <div class="chat-msg chat-ai">
+                            🤖 Newton ka dusra niyam kehta hai ki kisi vastu par lagaya gaya bal (F) uske dravyaman (m) aur tvaranit (a) ke gunanphal ke barabar hota hai.<br><br>
+                            <strong>F = m × a</strong><br><br>
+                            ✨ Simple example: Agar aap cricket ball ko zyada zor se fekein (zyada bal), to ball zyada tez jayegi (zyada acceleration)!
+                        </div>
+                        <div class="chat-msg chat-user">
+                            🙋 "Iska numerical bhi solve karo"
+                        </div>
+                        <div class="chat-typing">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item fade-in">
+                <div class="stat-number">50K+</div>
+                <div class="stat-label">Active Students</div>
+            </div>
+            <div class="stat-item fade-in">
+                <div class="stat-number">10L+</div>
+                <div class="stat-label">Doubts Solved</div>
+            </div>
+            <div class="stat-item fade-in">
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Satisfaction Rate</div>
+            </div>
+            <div class="stat-item fade-in">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Available</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="section-header fade-in">
+            <div class="section-tag">✨ Features</div>
+            <h2>Kyun ASKSP Hai Best AI Tutor?</h2>
+            <p>Har student ki zaroorat ke hisaab se designed features</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>Smart Doubt Solving</h3>
+                <p>Koi bhi sawal pucho — text, photo ya voice mein. AI turusnt samajhke step-by-step answer dega.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-language"></i>
+                </div>
+                <h3>Hindi + English Support</h3>
+                <p>Hinglish mein baat karo, Hindi mein padho, ya English mein — ASKSP sab samajhta hai!</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <h3>Smart Notes Generator</h3>
+                <p>Kisi bhi chapter ke complete notes minutes mein tayyar. Exam ke pehle revision ho jayega fast!</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <h3>Practice Tests & Quiz</h3>
+                <p>AI aapke weak areas samajhke personalized mock tests generate karega. MCQ + Subjective dono!</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Performance Tracking</h3>
+                <p>Daily, weekly aur monthly progress report. Jaano ki kahan improve karna hai aur kahan strong ho.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <h3>Photo Se Solve</h3>
+                <p>Question ki photo click karo, ASKSP use scan karke solve kar dega — handwritten bhi chalega!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subjects -->
+    <section class="subjects" id="subjects">
+        <div class="subjects-container">
+            <div class="section-header fade-in">
+                <div class="section-tag">📚 Subjects</div>
+                <h2>Har Subject Mein Expert AI</h2>
+                <p>Class 6 se 12 + Competitive Exams — Sab covered hai</p>
+            </div>
+            <div class="subjects-grid">
+                <div class="subject-card fade-in">
+                    <div class="subject-icon">🔢</div>
+                    <h4>Mathematics</h4>
+                    <p>Algebra, Geometry, Calculus, Statistics</p>
+                </div>
+                <div class="subject-card fade-in">
+                    <div class="subject-icon">⚡</div>
+                    <h4>Physics</h4>
+                    <p>Mechanics, Optics, Electricity, Modern Physics</p>
+                </div>
+                <div class="subject-card fade-in">
+                    <div class="subject-icon">🧪</div>
+                    <h4>Chemistry</h4>
+                    <p>Organic, Inorganic, Physical Chemistry</p>
+                </div>
+                <div class="subject-card fade-in">
+                    <div class="subject-icon">🧬</div>
+                    <h4>Biology</h4>
+                    <p>Botany, Zoology, Human Physiology</p>
+                </div>
+                <div class="subject-card fade-in">
+                    <div class="subject-icon">💻</div>
+                    <h4>Computer Science</h4>
+                    <p>Programming, Data Structures, Web Dev</p>
+                </div>
+                <div class="subject-card fade-in">
+                    <div class="subject-icon">📖</div>
+                    <h4>English</h4>
+                    <p>Grammar, Writing, Literature, Comprehension</p>
+                </div>
+                <div class="subject-card fade-in">
+                    <div class="subject-icon">🏛️</div>
+                    <h4>History & Civics</h4>
+                    <p>Indian History, World History, Polity</p>
+                </div>
+                <div class="subject-card fade-in">
+                    <div class="subject-icon">🏆</div>
+                    <h4>Competitive Exams</h4>
+                    <p>JEE, NEET, SSC, UPSC, Banking</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works">
+        <div class="section-header fade-in">
+            <div class="section-tag">🎯 How It Works</div>
+            <h2>3 Simple Steps Mein Start Karo</h2>
+            <p>Koi complicated setup nahi — bas poochho aur seekho!</p>
+        </div>
+        <div class="steps-container">
+            <div class="step-card fade-in">
+                <div class="step-number">1</div>
+                <h3>Sign Up Karo</h3>
+                <p>Free mein account banao. Bas email ya phone number chahiye. 30 seconds mein ready!</p>
+            </div>
+            <div class="step-card fade-in">
+                <div class="step-number">2</div>
+                <h3>Apna Sawal Pucho</h3>
+                <p>Type karo, photo bhejo, ya voice mein bolo. Hindi, English ya Hinglish — kuch bhi chalega!</p>
+            </div>
+            <div class="step-card fade-in">
+                <div class="step-number">3</div>
+                <h3>Samjho Aur Seekho</h3>
+                <p>AI step-by-step explain karega. Samajh nahi aaya? Dubara pucho — AI kabhi bore nahi hota! 😄</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+        <div class="pricing-container">
+            <div class="section-header fade-in">
+                <div class="section-tag">💰 Pricing</div>
+                <h2>Saste Mein Smart Padhai</h2>
+                <p>Tuition fees se 10x sasta, lekin 10x zyada effective!</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card fade-in">
+                    <h3>Free Plan</h3>
+                    <div class="pricing-amount">₹0<span>/month</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check-circle"></i> 10 doubts per day</li>
+                        <li><i class="fas fa-check-circle"></i> Basic notes</li>
+                        <li><i class="fas fa-check-circle"></i> Hindi + English</li>
+                        <li><i class="fas fa-check-circle"></i> Text-based questions</li>
+                        <li><i class="fas fa-check-circle"></i> Community access</li>
+                    </ul>
+                    <button class="btn-pricing outline">Start Free</button>
+                </div>
+                <div class="pricing-card popular fade-in">
+                    <h3>Pro Plan</h3>
+                    <div class="pricing-amount">₹149<span>/month</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check-circle"></i> Unlimited doubts</li>
+                        <li><i class="fas fa-check-circle"></i> Smart notes + summaries</li>
+                        <li><i class="fas fa-check-circle"></i> Photo se solve</li>
+                        <li><i class="fas fa-check-circle"></i> Practice tests & quiz</li>
+                        <li><i class="fas fa-check-circle"></i> Performance tracking</li>
+                        <li><i class="fas fa-check-circle"></i> Voice input support</li>
+                    </ul>
+                    <button class="btn-pricing primary">Get Pro Plan</button>
+                </div>
+                <div class="pricing-card fade-in">
+                    <h3>Institute Plan</h3>
+                    <div class="pricing-amount">₹99<span>/student</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check-circle"></i> Everything in Pro</li>
+                        <li><i class="fas fa-check-circle"></i> Teacher dashboard</li>
+                        <li><i class="fas fa-check-circle"></i> Batch management</li>
+                        <li><i class="fas fa-check-circle"></i> Custom branding</li>
+                        <li><i class="fas fa-check-circle"></i> Analytics & reports</li>
+                        <li><i class="fas fa-check-circle"></i> Priority support</li>
+                    </ul>
+                    <button class="btn-pricing outline">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-header fade-in">
+            <div class="section-tag">⭐ Reviews</div>
+            <h2>Students Ka Pyaar</h2>
+            <p>Dekhiye students kya kehte hain ASKSP ke baare mein</p>
+        </div>
+        <div class="testimonial-grid">
+            <div class="testimonial-card fade-in">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"JEE ki preparation mein ASKSP ne meri bohot madad ki. Physics ke doubts instantly clear ho jaate hain. Hindi mein samajh aata hai toh concept pakka hota hai!"</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">RK</div>
+                    <div class="testimonial-info">
+                        <h4>Rahul Kumar</h4>
+                        <p>JEE Aspirant, Patna</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-in">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"NEET ke liye Biology ke notes ASKSP se banaati hoon. Itne achhe notes milte hain ki tuition ki zaroorat hi nahi. ₹149 mein pura tuition ka kaam ho jaata hai!"</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">PS</div>
+                    <div class="testimonial-info">
+                        <h4>Priya Sharma</h4>
+                        <p>NEET Aspirant, Jaipur</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-in">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"Raat ko 2 baje bhi doubt aaye toh ASKSP hamesha ready rehta hai. Photo bhejke maths ke questions solve karata hoon. Teacher se bhi achha samjhata hai! 😄"</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">AV</div>
+                    <div class="testimonial-info">
+                        <h4>Aman Verma</h4>
+                        <p>Class 12, Lucknow</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="cta">
+        <div class="cta-bg"></div>
+        <div class="cta-content fade-in">
+            <h2>Aaj Hi Apna AI Study Partner Paao! 🎓</h2>
+            <p>Free mein start karo. Koi credit card nahi chahiye. Bas sign up karo aur padhai shuru!</p>
+            <div class="cta-input-group">
+                <input type="email" placeholder="Apna email ya phone daalo..." id="emailInput">
+                <button class="btn-primary" onclick="handleSignup()">
+                    <i class="fas fa-arrow-right"></i> Join Free
+                </button>
+            </div>
+            <p style="margin-top: 20px; font-size: 0.85rem; color: #888;">
+                <i class="fas fa-shield-alt"></i> 100% Free trial. Cancel anytime. No spam.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <div class="logo-icon">SP</div>
+                    <div class="logo-text">ASK<span>SP</span></div>
+                </a>
+                <p>India ka #1 AI Study Partner. Har student deserve karta hai ek smart tutor — ab har kisike paas hai!</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Subjects</a></li>
+                    <li><a href="#">For Institutes</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 ASKSP.in | Made with ❤️ in India for Indian Students</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Signup handler
+        function handleSignup() {
+            const email = document.getElementById('emailInput').value;
+            if (email) {
+                alert('🎉 Welcome to ASKSP! Aapka free trial start ho gaya. Check your email: ' + email);
+                document.getElementById('emailInput').value = '';
+            } else {
+                alert('Please apna email ya phone number daalo!');
+            }
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Add typing animation to chat
+        setTimeout(() => {
+            const chatDemo = document.querySelector('.chat-demo');
+            const typingEl = chatDemo.querySelector('.chat-typing');
+            
+            setTimeout(() => {
+                const newMsg = document.createElement('div');
+                newMsg.className = 'chat-msg chat-ai';
+                newMsg.innerHTML = '🤖 <strong>Numerical:</strong> Agar ek 5kg ki vastu par 20N ka bal lagaya jaye, toh:<br>a = F/m = 20/5 = <strong>4 m/s²</strong> ✅';
+                typingEl.replaceWith(newMsg);
+            }, 3000);
+        }, 2000);
+    </script>
+
+</body>
+</html>
