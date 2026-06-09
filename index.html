@@ -1199,6 +1199,224 @@
             font-size: 0.9rem;
         }
 
+        /* ============================================
+           POLICY PAGES - MODAL OVERLAY STYLES
+           ============================================ */
+        .page-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 26, 46, 0.98);
+            z-index: 9999;
+            overflow-y: auto;
+            padding: 80px 5% 60px;
+            animation: fadeInOverlay 0.3s ease;
+        }
+
+        .page-overlay.active {
+            display: block;
+        }
+
+        @keyframes fadeInOverlay {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .page-overlay-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            border-radius: 25px;
+            padding: 50px;
+            position: relative;
+        }
+
+        .page-overlay-close {
+            position: fixed;
+            top: 25px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: rgba(108, 99, 255, 0.2);
+            border: 1px solid rgba(108, 99, 255, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: white;
+            transition: all 0.3s ease;
+            z-index: 10000;
+        }
+
+        .page-overlay-close:hover {
+            background: var(--primary);
+            transform: rotate(90deg);
+        }
+
+        .page-overlay-content h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-overlay-content .page-subtitle {
+            color: #aaa;
+            font-size: 0.95rem;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(108, 99, 255, 0.15);
+        }
+
+        .page-overlay-content h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .page-overlay-content h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            color: #ddd;
+        }
+
+        .page-overlay-content p {
+            color: #bbb;
+            line-height: 1.8;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .page-overlay-content ul,
+        .page-overlay-content ol {
+            color: #bbb;
+            padding-left: 25px;
+            margin-bottom: 15px;
+            line-height: 2;
+        }
+
+        .page-overlay-content ul li,
+        .page-overlay-content ol li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .page-overlay-content strong {
+            color: #fff;
+        }
+
+        .page-overlay-content .info-box {
+            background: rgba(108, 99, 255, 0.1);
+            border: 1px solid rgba(108, 99, 255, 0.3);
+            border-radius: 15px;
+            padding: 20px 25px;
+            margin: 20px 0;
+        }
+
+        .page-overlay-content .info-box p {
+            color: #ccc;
+            margin-bottom: 5px;
+        }
+
+        .page-overlay-content .warning-box {
+            background: rgba(255, 101, 132, 0.1);
+            border: 1px solid rgba(255, 101, 132, 0.3);
+            border-radius: 15px;
+            padding: 20px 25px;
+            margin: 20px 0;
+        }
+
+        .page-overlay-content .warning-box p {
+            color: #ff9999;
+            margin-bottom: 5px;
+        }
+
+        .page-overlay-content .contact-box {
+            background: rgba(0, 210, 255, 0.08);
+            border: 1px solid rgba(0, 210, 255, 0.25);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .page-overlay-content .contact-box h3 {
+            color: var(--accent);
+            margin-top: 0;
+        }
+
+        .page-overlay-content .contact-box p {
+            color: #ccc;
+        }
+
+        /* FAQ Accordion Styles */
+        .faq-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(108, 99, 255, 0.15);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(108, 99, 255, 0.3);
+        }
+
+        .faq-question {
+            padding: 18px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            color: #eee;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            color: var(--accent);
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+            color: var(--primary);
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0 25px;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 25px 20px;
+        }
+
+        .faq-answer p {
+            color: #aaa;
+            line-height: 1.7;
+            font-size: 0.9rem;
+        }
+
         /* Animations */
         .fade-in {
             opacity: 0;
@@ -1407,6 +1625,18 @@
             .contact-info h3 {
                 font-size: 1.5rem;
             }
+
+            .page-overlay-content {
+                padding: 30px 20px;
+            }
+
+            .page-overlay-content h1 {
+                font-size: 1.7rem;
+            }
+
+            .page-overlay {
+                padding: 60px 3% 40px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1454,6 +1684,491 @@
     <div class="toast" id="toast">
         <i class="fas fa-check-circle"></i>
         <span id="toastMessage">Message sent!</span>
+    </div>
+
+    <!-- ============================================
+         HELP CENTER PAGE OVERLAY
+         ============================================ -->
+    <div class="page-overlay" id="helpCenterPage">
+        <div class="page-overlay-close" onclick="closePage('helpCenterPage')">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="page-overlay-content">
+            <h1>📚 Help Center</h1>
+            <p class="page-subtitle">Last Updated: January 15, 2025 | Yahan aapke saare common sawaalon ke jawaab milenge!</p>
+
+            <h2>🔐 Account & Registration</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>ASKSP pe account kaise banaye?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>"Sign Up" ya "Register" button pe click karo homepage pe. Apna naam, email address daalo, aur ek password banao. 30 seconds mein aapka account ready ho jayega!</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Password bhool gaya. Reset kaise karun?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Login page pe "Forgot Password" pe click karo. Apna registered email daalo, aur aapko password reset link mil jayega. Link pe click karke naya password set kar lo.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Profile information kaise update karun?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Apne account mein login karo, "My Profile" ya "Account Settings" pe jao, aur wahan se apni details update kar sakte ho — naam, photo, class, board sab change kar sakte ho.</p>
+                </div>
+            </div>
+
+            <h2>💳 Payments & Billing</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Kaun kaun se payment methods accept hain?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Hum UPI (PhonePe, GPay, Paytm), Debit Cards, Credit Cards, Net Banking, aur popular wallets sab accept karte hain. Secure payment gateway ke through process hota hai.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Kya meri payment information safe hai?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Bilkul! Saari transactions secure, encrypted payment gateways ke through process hoti hain. Hum aapke card details apne servers pe store nahi karte. 100% safe hai.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Payment ho gayi but access nahi mila. Kya karun?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Kuch minutes wait karo aur page refresh karo. Agar problem continue kare, toh humein staffing@asksp.in pe email karo apne transaction ID aur payment screenshot ke saath. Hum 24 ghante mein resolve kar denge.</p>
+                </div>
+            </div>
+
+            <h2>📖 Courses & Content</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Purchased content kaise access karun?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Successful payment ke baad, apne account mein login karo aur "My Courses" ya "My Dashboard" pe jao. Wahan se aapka saara purchased content accessible hoga.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Content access ki koi time limit hai?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Access duration course/product ke hisaab se alag hota hai. Specific course details page pe validity information di gayi hoti hai. Free trial 7 din ka hota hai.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Kya content download kar sakte hain offline use ke liye?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yeh specific course ya product pe depend karta hai. Kuch materials download ke liye available hain jabki kuch sirf streaming ke through accessible hain. Notes generally download ho sakte hain.</p>
+                </div>
+            </div>
+
+            <h2>🔧 Technical Issues</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Website/content properly load nahi ho raha. Kya karun?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yeh steps try karo:</p>
+                    <p>1. Browser cache aur cookies clear karo<br>
+                    2. Different browser use karke dekho<br>
+                    3. Internet connection check karo<br>
+                    4. Ad-blockers ya VPN disable karo<br>
+                    5. Agar problem continue kare toh staffing@asksp.in pe contact karo</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Kaun se browsers supported hain?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>ASKSP Google Chrome, Mozilla Firefox, Safari, aur Microsoft Edge ke latest versions pe best kaam karta hai. Mobile pe bhi Chrome aur Safari recommended hain.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>AI response slow aa raha hai. Normal hai?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Usually AI 2-5 seconds mein reply deta hai. Agar zyada time lag raha hai toh apna internet connection check karo. Peak hours mein thoda time lag sakta hai. Agar consistently slow hai toh humein report karo.</p>
+                </div>
+            </div>
+
+            <h2>🎓 AI Tutor Usage</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Free trial mein kya kya milta hai?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Free trial mein aapko milta hai:<br>
+                    - Daily 10 AI doubts solve<br>
+                    - Basic notes generation<br>
+                    - 2 practice tests<br>
+                    - Hindi + English support<br>
+                    - 7 days full access</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Photo se question solve kaise hota hai?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Camera icon pe click karo, question ki clear photo lo (handwritten bhi chalega), aur submit karo. AI question ko scan karega, samjhega, aur step-by-step solution dega. Best result ke liye achhi lighting mein clear photo lo.</p>
+                </div>
+            </div>
+
+            <div class="contact-box">
+                <h3>🤝 Still Need Help?</h3>
+                <p><strong>Email:</strong> staffing@asksp.in</p>
+                <p><strong>Phone/WhatsApp:</strong> +91 9990365883</p>
+                <p><strong>Response Time:</strong> 24 ghante ke andar</p>
+                <p><strong>Working Hours:</strong> Mon-Sat, 9:00 AM - 7:00 PM IST</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         PRIVACY POLICY PAGE OVERLAY
+         ============================================ -->
+    <div class="page-overlay" id="privacyPolicyPage">
+        <div class="page-overlay-close" onclick="closePage('privacyPolicyPage')">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="page-overlay-content">
+            <h1>🔒 Privacy Policy</h1>
+            <p class="page-subtitle">Last Updated: January 15, 2025 | Aapki privacy hamari priority hai!</p>
+
+            <p>ASKSP ("hum," "hamara," ya "hum") website https://www.asksp.in ("Website") operate karta hai. Yeh Privacy Policy explain karti hai ki hum aapki information kaise collect, use, disclose aur safeguard karte hain jab aap hamari website visit karte hain.</p>
+
+            <h2>1. Information Jo Hum Collect Karte Hain</h2>
+            
+            <h3>Personal Data:</h3>
+            <ul>
+                <li>Naam</li>
+                <li>Email address</li>
+                <li>Phone number</li>
+                <li>Billing/payment information</li>
+                <li>Class, board, aur educational details</li>
+                <li>Koi bhi information jo aap voluntarily provide karte ho</li>
+            </ul>
+
+            <h3>Automatically Collected Data:</h3>
+            <ul>
+                <li>IP address</li>
+                <li>Browser type aur version</li>
+                <li>Operating system</li>
+                <li>Pages visited aur time spent</li>
+                <li>Referring website addresses</li>
+                <li>Device information</li>
+                <li>Cookies aur similar tracking technologies</li>
+            </ul>
+
+            <h2>2. Hum Aapki Information Kaise Use Karte Hain</h2>
+            <p>Hum collected information in purposes ke liye use karte hain:</p>
+            <ul>
+                <li>Apni services provide, maintain, aur improve karne ke liye</li>
+                <li>Transactions process karne aur related information bhejne ke liye</li>
+                <li>Updates, promotional materials, aur notifications bhejne ke liye (aapki consent se)</li>
+                <li>Aapke queries ka jawab dene aur customer support provide karne ke liye</li>
+                <li>Usage patterns aur trends monitor aur analyze karne ke liye</li>
+                <li>AI tutor ko aapke learning pattern ke hisaab se personalize karne ke liye</li>
+                <li>Technical issues ya fraud detect, prevent aur address karne ke liye</li>
+                <li>Legal obligations comply karne ke liye</li>
+            </ul>
+
+            <h2>3. Information Sharing</h2>
+            <p>Hum aapki personal information ko third parties ko sell, trade, ya rent nahi karte. In circumstances mein share ho sakti hai:</p>
+            <ul>
+                <li><strong>Service Providers:</strong> Third-party vendors jo hamari website operate karne, payments process karne, ya services provide karne mein madad karte hain (e.g., payment gateways, email service providers)</li>
+                <li><strong>Legal Requirements:</strong> Agar law, regulation, ya legal process require kare</li>
+                <li><strong>Business Transfers:</strong> Merger, acquisition, ya sale of assets ke connection mein</li>
+                <li><strong>Aapki Consent Se:</strong> Jab aap explicit permission dete hain</li>
+            </ul>
+
+            <h2>4. Cookies aur Tracking Technologies</h2>
+            <p>Hum cookies aur similar tracking technologies use karte hain aapke experience ko enhance karne ke liye. Aap apne browser settings se cookies control kar sakte hain. Lekin cookies disable karne se website ki kuch functionalities affect ho sakti hain.</p>
+
+            <h2>5. Data Security</h2>
+            <p>Hum appropriate technical aur organizational security measures implement karte hain aapki personal information ko unauthorized access, alteration, disclosure, ya destruction se protect karne ke liye. Lekin internet pe koi bhi transmission method 100% secure nahi hai, aur hum absolute security guarantee nahi kar sakte.</p>
+
+            <h2>6. Third-Party Links</h2>
+            <p>Hamari website mein third-party websites ke links ho sakte hain. Hum un websites ki privacy practices ya content ke liye responsible nahi hain. Hum recommend karte hain ki aap kisi bhi third-party site ki privacy policy review karein.</p>
+
+            <h2>7. Children's Privacy</h2>
+            <p>Hamari services 13 saal se kam umar ke individuals ke liye directed nahi hain bina parental consent ke. Agar humein pata chale ki humne 13 saal se kam umar ke bacche ki information collect ki hai bina consent ke, toh hum use delete karne ke steps lenge.</p>
+
+            <h2>8. Aapke Rights</h2>
+            <p>Aapke paas yeh rights hain regarding your personal data:</p>
+            <ul>
+                <li>Apni personal information access karne ka right</li>
+                <li>Inaccurate information correct karne ka right</li>
+                <li>Apni personal information delete karne ka right</li>
+                <li>Consent withdraw karne ka right</li>
+                <li>Data portability ka right</li>
+            </ul>
+            <p>In rights ko exercise karne ke liye, humein <strong>staffing@asksp.in</strong> pe contact karo.</p>
+
+            <h2>9. Changes to This Privacy Policy</h2>
+            <p>Hum yeh Privacy Policy time to time update kar sakte hain. Koi bhi changes is page pe post ki jayengi updated "Last Updated" date ke saath. Hum recommend karte hain ki aap periodically is policy ko review karein.</p>
+
+            <div class="contact-box">
+                <h3>📧 Contact Us</h3>
+                <p>Agar aapke paas is Privacy Policy ke baare mein koi questions ya concerns hain, toh humse contact karo:</p>
+                <p><strong>Email:</strong> staffing@asksp.in</p>
+                <p><strong>Phone:</strong> +91 9990365883</p>
+                <p><strong>Address:</strong> 2nd Floor, Innovation Hub, Sector 62, Noida, UP - 201301</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         TERMS OF SERVICE PAGE OVERLAY
+         ============================================ -->
+    <div class="page-overlay" id="termsPage">
+        <div class="page-overlay-close" onclick="closePage('termsPage')">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="page-overlay-content">
+            <h1>📋 Terms of Service</h1>
+            <p class="page-subtitle">Last Updated: January 15, 2025 | Please in Terms ko dhyan se padhein.</p>
+
+            <p>In Terms of Service ("Terms") ko dhyan se padhein before using website https://www.asksp.in ("Website") jo <strong>ASKSP</strong> ("hum," "hamara," ya "hum") dwara operate ki jaati hai.</p>
+
+            <div class="info-box">
+                <p><strong>⚠️ Important:</strong> Is Website ko access ya use karke, aap in Terms se bound hone ke liye agree karte hain. Agar aap in Terms se agree nahi karte, toh please Website use mat karein.</p>
+            </div>
+
+            <h2>1. Acceptance of Terms</h2>
+            <p>Is Website ko access, browse, ya use karke, aap acknowledge karte hain ki aapne yeh Terms of Service aur hamari Privacy Policy padhi hai, samjhi hai, aur in se bound hone ke liye agree karte hain.</p>
+
+            <h2>2. Eligibility</h2>
+            <p>Hamari services use karne ke liye aapki umar kam se kam 13 saal honi chahiye. 18 saal se kam ke users ke liye parent ya legal guardian ki consent zaruri hai. Is Website ko use karke, aap represent karte hain ki aap yeh requirement meet karte hain.</p>
+
+            <h2>3. User Accounts</h2>
+            <ul>
+                <li>Aap apne account credentials ki confidentiality maintain karne ke responsible hain</li>
+                <li>Aapke account ke under hone wali saari activities ke liye aap responsible hain</li>
+                <li>Registration ke dauran accurate, current, aur complete information provide karein</li>
+                <li>Unauthorized use ke baare mein turant humein notify karein</li>
+                <li>Hum in Terms violate karne wale accounts ko suspend ya terminate kar sakte hain</li>
+            </ul>
+
+            <h2>4. Services & Products</h2>
+            <ul>
+                <li>ASKSP digital content, AI tutoring, educational materials, notes, quizzes, aur study tools provide karta hai jaisa Website pe described hai</li>
+                <li>Hum kisi bhi service ko modify, suspend, ya discontinue karne ka right reserve karte hain bina prior notice ke</li>
+                <li>Purchased content ka access specific terms ke subject hai jo product/course page pe mentioned hain</li>
+            </ul>
+
+            <h2>5. Payment Terms</h2>
+            <ul>
+                <li>Saari prices Indian Rupees (INR) mein listed hain unless otherwise stated</li>
+                <li>Payment purchase ke time full mein karna hoga unless installment option explicitly provided ho</li>
+                <li>Hum third-party payment gateways use karte hain payments process karne ke liye</li>
+                <li>Applicable taxes ke liye aap responsible hain</li>
+                <li>Free trial expire hone ke baad automatic charges lag sakte hain agar cancel nahi kiya</li>
+            </ul>
+
+            <h2>6. Intellectual Property</h2>
+            <ul>
+                <li>Is Website ka saara content — text, graphics, logos, images, videos, audio, course materials, AI responses, aur software — ASKSP ya uske content suppliers ki property hai</li>
+                <li>Bina prior written permission ke aap koi content reproduce, distribute, modify, publicly display, republish, download, store, ya transmit nahi kar sakte</li>
+                <li>Purchased content sirf aapke personal, non-commercial use ke liye licensed hai</li>
+            </ul>
+
+            <h2>7. Prohibited Activities</h2>
+            <div class="warning-box">
+                <p><strong>🚫 Aap agree karte hain ki aap yeh NAHI karenge:</strong></p>
+            </div>
+            <ul>
+                <li>Purchased content ya account access share, resell, ya redistribute karna</li>
+                <li>Website ko kisi unlawful purpose ke liye use karna</li>
+                <li>Website ki functionality hack, disrupt, ya interfere karne ki koshish karna</li>
+                <li>Viruses ya malicious code upload ya transmit karna</li>
+                <li>Kisi aur person ya entity ko impersonate karna</li>
+                <li>Automated systems (bots, scrapers) se Website access karna</li>
+                <li>Kisi bhi applicable local, state, national, ya international law violate karna</li>
+                <li>Course content record, screenshot, ya pirate karna</li>
+                <li>AI generated content ko apne naam se sell karna</li>
+            </ul>
+
+            <h2>8. AI Content Disclaimer</h2>
+            <p>ASKSP ka AI tutor educational assistance ke liye hai. AI generated responses mein kabhi kabhi inaccuracies ho sakti hain. Users ko important decisions ke liye AI responses ko sole source nahi maanna chahiye. Hum AI responses ki 100% accuracy guarantee nahi karte.</p>
+
+            <h2>9. Limitation of Liability</h2>
+            <ul>
+                <li>ASKSP Website aur content "as is" aur "as available" basis pe provide karta hai</li>
+                <li>Hum guarantee nahi karte ki Website uninterrupted, error-free, ya harmful components se free hogi</li>
+                <li>Law dwara permitted maximum extent tak, ASKSP kisi bhi indirect, incidental, special, consequential, ya punitive damages ke liye liable nahi hoga</li>
+                <li>Hamari total liability us specific service ke liye paid amount se exceed nahi karegi</li>
+            </ul>
+
+            <h2>10. Disclaimer of Warranties</h2>
+            <p>Hum koi warranties, expressed ya implied, nahi karte regarding:</p>
+            <ul>
+                <li>Content ki accuracy ya completeness</li>
+                <li>Hamari services use karne se results</li>
+                <li>Website pe provided kisi information ki reliability</li>
+                <li>AI tutor ke responses ki 100% correctness</li>
+            </ul>
+
+            <h2>11. Termination</h2>
+            <p>Hum aapka Website access terminate ya suspend karne ka right reserve karte hain apne sole discretion pe, bina notice ke, aise conduct ke liye jo hamari raay mein in Terms violate karta hai ya other users, hum, ya third parties ke liye harmful hai.</p>
+
+            <h2>12. Governing Law</h2>
+            <p>Yeh Terms India ke laws ke according governed aur construed hongi. In Terms ke under arise hone wale disputes Noida/Gautam Buddha Nagar, Uttar Pradesh, India ke courts ke exclusive jurisdiction ke subject honge.</p>
+
+            <h2>13. Changes to Terms</h2>
+            <p>Hum in Terms ko kisi bhi time modify karne ka right reserve karte hain. Updated Terms is page pe revised "Last Updated" date ke saath post ki jayengi. Changes ke baad Website ka continued use new Terms ki acceptance constitute karta hai.</p>
+
+            <div class="contact-box">
+                <h3>📧 Contact Us</h3>
+                <p>Agar aapke paas in Terms of Service ke baare mein koi questions hain:</p>
+                <p><strong>Email:</strong> staffing@asksp.in</p>
+                <p><strong>Phone:</strong> +91 9990365883</p>
+                <p><strong>Website:</strong> https://www.asksp.in</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         REFUND POLICY PAGE OVERLAY
+         ============================================ -->
+    <div class="page-overlay" id="refundPolicyPage">
+        <div class="page-overlay-close" onclick="closePage('refundPolicyPage')">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="page-overlay-content">
+            <h1>💰 Refund Policy</h1>
+            <p class="page-subtitle">Last Updated: January 15, 2025 | Purchase karne se pehle yeh policy dhyan se padhein.</p>
+
+            <p><strong>ASKSP</strong> (https://www.asksp.in) pe hum high-quality digital content aur AI tutoring services provide karne ki koshish karte hain. Please hamari refund policy dhyan se padhein purchase karne se pehle.</p>
+
+            <h2>1. Digital Products & AI Services</h2>
+            <div class="warning-box">
+                <p><strong>⚠️ Important:</strong> Digital products ki nature ke kaaran aur instant access milne ke kaaran, ek baar access grant hone ya content deliver hone ke baad saari sales final aur non-refundable hain.</p>
+            </div>
+            <p>Ek baar aapne content access, download, ya stream kar liya, koi refund issue nahi kiya jayega.</p>
+
+            <h2>2. Refund Ke Liye Eligibility</h2>
+            <p>In circumstances mein refund consider kiya ja sakta hai:</p>
+            <ul>
+                <li><strong>Duplicate Payment:</strong> Agar aapse accidentally same product/service ke liye ek se zyada baar charge ho gaya</li>
+                <li><strong>Technical Issues:</strong> Agar hamari taraf se technical error ke kaaran aap content access nahi kar pa rahe aur hum reasonable time mein issue resolve nahi kar pa rahe</li>
+                <li><strong>Non-Delivery:</strong> Agar payment successfully process ho gayi but content/service kabhi deliver ya accessible nahi hui</li>
+                <li><strong>Service Not As Described:</strong> Agar service bilkul different hai jo described thi (major difference)</li>
+            </ul>
+
+            <h2>3. Refund Request Process</h2>
+            <p>Refund request karne ke liye yeh steps follow karein:</p>
+            <ol>
+                <li>Humein <strong>staffing@asksp.in</strong> pe email karo purchase date ke <strong>7 din</strong> ke andar</li>
+                <li>Yeh information include karein:
+                    <ul>
+                        <li>Aapka full naam</li>
+                        <li>Registered email address</li>
+                        <li>Order/Transaction ID</li>
+                        <li>Payment screenshot ya receipt</li>
+                        <li>Refund request ki reason (detail mein)</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>4. Refund Processing</h2>
+            <ul>
+                <li>Saari refund requests <strong>7-10 business days</strong> mein review ki jayengi</li>
+                <li>Agar approved, refund original payment method mein <strong>10-15 business days</strong> mein process hoga (aapke bank/payment provider pe depend karta hai)</li>
+                <li>Partial refunds hamari discretion pe issue kiye ja sakte hain circumstances ke hisaab se</li>
+                <li>Refund amount mein payment gateway charges deduct ho sakte hain</li>
+            </ul>
+
+            <h2>5. Non-Refundable Situations</h2>
+            <div class="warning-box">
+                <p><strong>🚫 In cases mein refund NAHI diya jayega:</strong></p>
+            </div>
+            <ul>
+                <li>Aapne purchase ke baad simply mann badal liya</li>
+                <li>Content useful ya suitable nahi lagi (agar content as described deliver hua hai)</li>
+                <li>Personal technical issues ke kaaran content access nahi kar paye (e.g., slow internet, incompatible device)</li>
+                <li>Support se contact kiye bina galat product purchase kar liya</li>
+                <li>Refund request 7-day window ke baad ki gayi</li>
+                <li>Hamari Terms of Service ki koi violation</li>
+                <li>Aapne content significantly use kar liya (50% se zyada)</li>
+                <li>Account share ya misuse kiya</li>
+            </ul>
+
+            <h2>6. Cancellation</h2>
+            <ul>
+                <li>Agar aap content access karne se pehle purchase cancel karna chahte hain, toh turant <strong>staffing@asksp.in</strong> pe contact karo</li>
+                <li>Content access se pehle ki cancellation full refund ke liye eligible ho sakti hai</li>
+                <li>Cancellation request jitni jaldi ho sake submit karein</li>
+            </ul>
+
+            <h2>7. Subscription Services</h2>
+            <ul>
+                <li>Agar ASKSP subscription-based services offer karta hai, aap kisi bhi time subscription cancel kar sakte hain</li>
+                <li>Cancellation current billing cycle ke end mein effective hogi</li>
+                <li>Partial billing periods ke liye koi refund issue nahi kiya jayega</li>
+                <li>Cancel karne ke baad current period tak access rahega</li>
+                <li>Auto-renewal off karne ke liye account settings mein jao</li>
+            </ul>
+
+            <h2>8. Free Trial</h2>
+            <ul>
+                <li>Free trial ke dauran koi charge nahi lagta</li>
+                <li>Trial period khatam hone se pehle cancel karne pe koi payment nahi lagegi</li>
+                <li>Trial expire hone ke baad agar paid plan activate hota hai, toh upar waali refund policy applicable hogi</li>
+            </ul>
+
+            <div class="contact-box">
+                <h3>📧 Refund Related Queries</h3>
+                <p>Refund Policy ke baare mein koi bhi sawal ho toh humse contact karo:</p>
+                <p><strong>Email:</strong> staffing@asksp.in</p>
+                <p><strong>Phone/WhatsApp:</strong> +91 9990365883</p>
+                <p><strong>Response Time:</strong> 24-48 business hours</p>
+                <p><strong>Office:</strong> 2nd Floor, Innovation Hub, Sector 62, Noida, UP - 201301</p>
+            </div>
+        </div>
     </div>
 
     <!-- Navbar -->
@@ -1978,10 +2693,10 @@
             <div class="footer-links">
                 <h4>Support</h4>
                 <ul>
-                    <li><a href="#">Help Center</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Refund Policy</a></li>
+                    <li><a href="javascript:void(0)" onclick="openPage('helpCenterPage')">Help Center</a></li>
+                    <li><a href="javascript:void(0)" onclick="openPage('privacyPolicyPage')">Privacy Policy</a></li>
+                    <li><a href="javascript:void(0)" onclick="openPage('termsPage')">Terms of Service</a></li>
+                    <li><a href="javascript:void(0)" onclick="openPage('refundPolicyPage')">Refund Policy</a></li>
                 </ul>
             </div>
         </div>
@@ -2072,13 +2787,52 @@
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const target = document.querySelector(href);
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
+
+        // Page overlay functions
+        function openPage(pageId) {
+            document.getElementById(pageId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePage(pageId) {
+            document.getElementById(pageId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close page with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.page-overlay.active').forEach(overlay => {
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            }
+        });
+
+        // FAQ Toggle
+        function toggleFaq(element) {
+            const faqItem = element.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all other FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Toggle current item
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
 
         // Add typing animation to chat
         setTimeout(() => {
